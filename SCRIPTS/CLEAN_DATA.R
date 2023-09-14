@@ -103,7 +103,7 @@ IMPUTE_MISSING_VALUES <- function(store_mstr, mt_user) {
       stores_missing_store_area[str, ]$sqft <- mt_user$STORE_AREA_DEFAULT
     }
     
-    store_mstr <- rbind(stores_missing_store_area, stores_avai_apparel_area)
+    store_mstr <- rbind(stores_missing_store_area, stores_avai_store_area)
   }
   
   
@@ -259,7 +259,7 @@ rem_end_date <- as.Date(user_ip$REM_END_PERIOD)
 store_mstr$month_diff<-0
 store_mstr[which(store_mstr$`op-date`>rem_end_date),"month_diff"]<- interval(store_mstr[which(store_mstr$`op-date`>rem_end_date),"op-date"],(as.Date(user_ip$END_PERIOD)+months(1))) %/% months(1)
 store_mstr[which(store_mstr$`op-date`<=rem_end_date & store_mstr$`op-date`>=rem_start_date ),"month_diff"]<- interval(store_mstr[which(store_mstr$`op-date`<=rem_end_date & store_mstr$`op-date`>=rem_start_date ),"op-date"],(as.Date(user_ip$END_PERIOD)+months(1))) %/% months(1)
-store_mstr[which(store_mstr$`op-date`<rem_start_date),"month_diff"]<- interval(store_mstr[which(store_mstr$`op-date`<rem_start_date),"op-date"],(as.Date(rem_start_date)-months(1))) %/% months(1)+interval((as.Date(rem_start_date)-months(1)),(as.Date(user_ip$END_PERIOD)+months(1))) %/% months(1)
+store_mstr[which(store_mstr$`op-date`<rem_start_date),"month_diff"]<- interval(store_mstr[which(store_mstr$`op-date`<rem_start_date),"op-date"],(as.Date(rem_start_date)-months(1))) %/% months(1)+interval((as.Date(rem_end_date)+months(1)),(as.Date(user_ip$END_PERIOD)+months(1))) %/% months(1)
 
 
 
